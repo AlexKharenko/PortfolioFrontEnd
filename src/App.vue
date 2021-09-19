@@ -1,30 +1,51 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="wrapper" :class="[isDarkModeOn ? 'dark' : '']">
+    <NavBar />
+    <router-view class="main" />
+    <Socials />
   </div>
-  <router-view />
 </template>
 
+<script>
+import NavBar from "@/components/NavBar.vue";
+import Socials from "@/components/Socials.vue";
+import { mapGetters } from "vuex";
+
+export default {
+  components: {
+    NavBar,
+    Socials,
+  },
+  computed: {
+    ...mapGetters(["isDarkModeOn"]),
+  },
+};
+</script>
+
 <style lang="scss">
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.wrapper {
+  min-height: 100vh;
+  transition: 0.4s ease-in-out;
+  .main {
+    position: relative;
+    top: 60px;
+    padding: 20px 20px;
   }
+}
+.wrapper.dark {
+  background: black;
 }
 </style>
