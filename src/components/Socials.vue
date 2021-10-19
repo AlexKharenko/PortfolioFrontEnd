@@ -2,7 +2,7 @@
   <div class="social-block">
     <div class="social-icons">
       <div class="social-media-icon-block">
-        <a href="#">
+        <a href="#" target="_blank">
           <img
             src="../assets/socials/instagram.png"
             alt="Instagram Icon"
@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="social-media-icon-block">
-        <a href="#">
+        <a href="#" target="_blank">
           <img
             src="../assets/socials/github.png"
             alt="Github Icon"
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="social-media-icon-block">
-        <a href="#">
+        <a href="#" target="_blank">
           <img
             src="../assets/socials/linkedin.png"
             alt="LinkedIn Icon"
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="social-media-icon-block">
-        <a href="#">
+        <a href="#" target="_blank">
           <img
             src="../assets/socials/facebook.png"
             alt="Facebook Icon"
@@ -119,6 +119,7 @@ export default {};
       }
       .social-text {
         filter: invert(1);
+        background: white;
       }
     }
   }
