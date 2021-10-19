@@ -9,9 +9,6 @@
       <router-link to="/about">
         <p class="nav-link-text">About me</p>
       </router-link>
-      <router-link to="/skills">
-        <p class="nav-link-text">Skills</p>
-      </router-link>
       <router-link to="/works">
         <p class="nav-link-text">Works</p>
       </router-link>
@@ -45,7 +42,8 @@ export default {
 
 <style lang="scss">
 .nav-bar {
-  position: fixed;
+  position: sticky;
+  top: 0;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
