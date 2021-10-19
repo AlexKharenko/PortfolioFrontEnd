@@ -40,9 +40,10 @@ export default {
   min-height: 100vh;
   transition: 0.4s ease-in-out;
   .main {
+    max-width: 1500px;
     position: relative;
-    top: 60px;
-    padding: 20px 20px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 .wrapper.dark {
