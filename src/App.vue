@@ -29,17 +29,32 @@ export default {
   box-sizing: border-box;
 }
 
+:root {
+  --default-light-mode-color: #2c3e50;
+  --default-dark-mode-color: rgb(224, 222, 222);
+  --dark-mode-background: black;
+  --contact-me-link-light-mode--hover-color: rgb(80, 80, 80);
+  --additional-light-mode-color: rgb(0, 0, 0);
+  --additional-light-mode-hover-color: rgb(51, 51, 51);
+  --additional-dark-mode-color: rgb(175, 172, 172);
+  --additional-dark-mode-hover-color: rgb(141, 141, 141);
+  --btn-first-bg: rgb(252, 112, 112);
+  --btn-first-hover-bg: rgba(252, 112, 112, 0.836);
+  --btn-first-color: rgb(243, 243, 243);
+}
+
 #app {
   font-family: Roboto, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: var(--default-light-mode-color);
 }
 
 .wrapper {
   min-height: 100vh;
   transition: 0.4s ease-in-out;
   .main {
+    min-height: calc(100vh - 65px);
     max-width: 1500px;
     position: relative;
     left: 50%;
@@ -47,6 +62,7 @@ export default {
   }
 }
 .wrapper.dark {
-  background: black;
+  background: var(--dark-mode-background);
+  color: var(--default-dark-mode-color);
 }
 </style>
