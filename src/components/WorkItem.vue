@@ -22,34 +22,31 @@
           <p class="website-link-text">work.com</p>
         </a>
       </div>
+      <ButtonRedirect :btn_text="'About it'" :target_page="'#'" />
     </div>
   </div>
 </template>
 
 <script>
-// import { mapActions, mapGetters } from "vuex";
+import ButtonRedirect from "@/components/ButtonRedirect.vue";
 
 export default {
   name: "WorkItem",
   data() {
     return {};
   },
-  // methods: {
-  //   ...mapActions(["changeDarkModeActivity"]),
-  //   darkModeClick() {
-  //     this.changeDarkModeActivity(!this.isDarkModeOn);
-  //   },
-  // },
-  // computed: {
-  //   ...mapGetters(["isDarkModeOn"]),
-  // },
+  components: {
+    ButtonRedirect,
+  },
 };
 </script>
 
 <style lang="scss">
 .work-block {
+  border-bottom: 1px solid var(--additional-dark-mode-color);
+  padding-bottom: 20px;
   display: flex;
-  max-height: 240px;
+  max-height: 260px;
   .work-img {
     margin-right: 40px;
     img {
@@ -64,15 +61,38 @@ export default {
       }
       .about-work-text {
         margin-bottom: 10px;
+        font-size: 0.9em;
         overflow: hidden;
-        line-height: 1em;
-        max-height: 5em;
+        line-height: 1.1em;
+        height: 5.3em;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 5;
       }
       .website-link {
-        color: black;
+        color: var(--additional-light-mode-color);
+        transition: 0.4s ease-in-out;
+      }
+      .website-link:hover {
+        transition: 0.1s linear;
+        color: var(--additional-light-mode-hover-color);
+      }
+    }
+    .btn-redirect {
+      margin-top: 30px;
+    }
+  }
+}
+.dark {
+  .work-block {
+    .work-data-block {
+      .work-text-block {
+        .website-link {
+          color: var(--additional-dark-mode-color);
+        }
+        .website-link:hover {
+          color: var(--additional-dark-mode-hover-color);
+        }
       }
     }
   }
