@@ -72,7 +72,7 @@ export default {
         }
       }
       .contact-me-link:hover {
-        color: rgb(80, 80, 80);
+        color: var(--contact-me-link-light-mode--hover-color);
         .arrow-link {
           img {
             filter: invert(0.3);
@@ -94,10 +94,10 @@ export default {
 
 .dark .home {
   .left-part {
-    color: white;
+    color: var(--default-dark-mode-color);
     .contact-me-block {
       .contact-me-link {
-        color: rgb(204, 203, 203);
+        color: var(--additional-dark-mode-color);
         .arrow-link {
           img {
             filter: invert(0.6);
@@ -105,7 +105,7 @@ export default {
         }
       }
       .contact-me-link:hover {
-        color: rgb(141, 141, 141);
+        color: var(--additional-dark-mode-hover-color);
         .arrow-link {
           img {
             filter: invert(0.4);

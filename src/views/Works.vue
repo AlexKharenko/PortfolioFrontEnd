@@ -5,6 +5,7 @@
     </div>
     <div class="works-container">
       <WorkItem />
+      <WorkItem />
     </div>
   </div>
 </template>
@@ -27,22 +28,9 @@ export default {
     text-align: center;
     margin-bottom: 30px;
   }
-  .about-me-text-block {
-    .about-me-paragraph {
-      text-indent: 45px;
-    }
-  }
-}
-.dark {
-  .about {
-    .about-me-title {
-      color: rgb(224, 222, 222);
-    }
-    .about-me-text-block {
-      .about-me-paragraph {
-        color: rgb(175, 172, 172);
-      }
-    }
+  .works-container {
+    display: grid;
+    grid-row-gap: 20px;
   }
 }
 </style>

@@ -31,11 +31,11 @@
 .dark {
   .about {
     .about-me-title {
-      color: rgb(224, 222, 222);
+      color: var(--default-dark-mode-color);
     }
     .about-me-text-block {
       .about-me-paragraph {
-        color: rgb(175, 172, 172);
+        color: var(--additional-dark-mode-color);
       }
     }
   }
