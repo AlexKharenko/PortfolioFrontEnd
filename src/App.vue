@@ -65,4 +65,21 @@ export default {
   background: var(--dark-mode-background);
   color: var(--default-dark-mode-color);
 }
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 10px;
+}
+textarea::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+textarea:hover {
+  cursor: auto;
+}
 </style>
