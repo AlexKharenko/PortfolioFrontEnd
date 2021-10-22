@@ -12,7 +12,7 @@
       <router-link to="/works">
         <p class="nav-link-text">Works</p>
       </router-link>
-      <router-link to="contacts">
+      <router-link to="/contacts">
         <p class="nav-link-text">Contacts</p>
       </router-link>
       <div class="btn-toggle-mode" @click="darkModeClick()"></div>
