@@ -12,7 +12,7 @@ const getters = {
 
 const actions = {
   async SignUp(data) {
-    let response = await fetch(`${process.env.VUE_APP_URL}/signup`, {
+    let response = await fetch(`${process.env.VUE_APP_SERVER}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const actions = {
     }
   },
   async LogIn({ dispatch }, data) {
-    let response = await fetch(`${process.env.VUE_APP_URL}/login`, {
+    let response = await fetch(`${process.env.VUE_APP_SERVER}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const actions = {
     }
   },
   async fetchUser({ commit, dispatch }) {
-    const res = await fetch(`${process.env.VUE_APP_URL}/profile`, {
+    const res = await fetch(`${process.env.VUE_APP_SERVER}/profile`, {
       headers: {
         "Content-Type": "application/json",
       },
