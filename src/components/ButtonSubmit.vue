@@ -1,12 +1,12 @@
 <template>
-  <button class="btn-submit" type="submit">
+  <button class="btn-submit" type="submit" :disabled="disabled || false">
     <p class="btn-text">{{ btn_text || "Submit" }}</p>
   </button>
 </template>
 
 <script>
 export default {
-  props: ["btn_text"],
+  props: ["btn_text", "disabled"],
 };
 </script>
 
