@@ -1,5 +1,5 @@
 <template>
-  <router-link class="btn-link" :to="target_page">
+  <router-link class="btn-link" :to="target_page || '/'">
     <div class="btn-redirect">
       <p class="btn-text">{{ btn_text || "More" }}</p>
     </div>
