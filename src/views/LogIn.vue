@@ -39,16 +39,12 @@
           Required field
         </p>
       </div>
-      <div class="show-password-block">
+      <div class="show-password-block margin-top-10">
         <input type="checkbox" id="show_password" v-model="show_password" />
         <label for="show_password">Show Password</label>
       </div>
       <ButtonSubmit :btn_text="'Log in'" />
     </form>
-    <p>
-      If not registered yet, please
-      <router-link to="/signup">Sign Up</router-link>
-    </p>
   </div>
 </template>
 
@@ -91,14 +87,21 @@ export default {
         return 0;
       }
       const data = {
-        email: this.email,
+        login: this.login,
         password: this.password,
       };
       const err = await this.LogIn(data);
       this.error = err;
     },
   },
-  created() {
+  watch: {
+    isLoggedIn() {
+      if (this.isLoggedIn) {
+        this.$router.push("/");
+      }
+    },
+  },
+  mounted() {
     if (this.isLoggedIn) {
       this.$router.push("/");
     }
