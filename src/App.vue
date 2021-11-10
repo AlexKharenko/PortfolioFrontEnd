@@ -9,7 +9,7 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import Socials from "@/components/Socials.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -18,6 +18,14 @@ export default {
   },
   computed: {
     ...mapGetters(["isDarkModeOn"]),
+  },
+  methods: {
+    ...mapActions(["fetchUser"]),
+  },
+  created() {
+    if (!this.isLoggedIn) {
+      this.fetchUser();
+    }
   },
 };
 </script>
@@ -81,5 +89,71 @@ textarea::-webkit-scrollbar-track {
 }
 textarea:hover {
   cursor: auto;
+}
+
+.add,
+.update,
+.login-signup-container {
+  min-height: inherit;
+  padding: 20px 80px;
+  display: flex;
+  flex-direction: column;
+  .error-message {
+    margin-top: 30px;
+    text-align: center;
+  }
+  h1 {
+    text-align: center;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    align-items: center;
+    .input-block {
+      .form-field-title {
+        margin-top: 10px;
+        padding-bottom: 2px;
+      }
+      .form-field {
+        width: 400px;
+        outline: none;
+        border: none;
+        border-bottom: 2px solid black;
+        padding: 4px 5px;
+        background: inherit;
+      }
+      textarea {
+        height: 200px;
+        resize: none;
+        border: 2px solid black;
+      }
+    }
+    .btn-submit {
+      margin-top: 20px;
+    }
+  }
+}
+.dark {
+  .add,
+  .update,
+  .login-signup-container {
+    form {
+      .input-block {
+        .form-field {
+          color: var(--default-dark-mode-color);
+          border-bottom: 2px solid var(--additional-dark-mode-color);
+        }
+        textarea {
+          border: 2px solid var(--additional-dark-mode-color);
+        }
+      }
+    }
+  }
+}
+
+.margin-top-10 {
+  margin-top: 10px;
 }
 </style>
