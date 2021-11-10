@@ -89,16 +89,16 @@
           Should match the password
         </p>
       </div>
-      <div class="show-password-block">
+      <div class="show-password-block margin-top-10">
         <input type="checkbox" id="show_password" v-model="show_password" />
         <label for="show_password">Show Password</label>
       </div>
       <ButtonSubmit :btn_text="'Sign up'" :disabled="forbiden" />
+      <p class="margin-top-10">
+        If you are already registered, please
+        <router-link to="/login">Log in</router-link>
+      </p>
     </form>
-    <p>
-      If you are already registered, please
-      <router-link to="/login">Log in</router-link>
-    </p>
   </div>
 </template>
 
@@ -151,9 +151,16 @@ export default {
       this.forbiden = forbiden || false;
     },
   },
-  created() {
+  watch: {
+    isLoggedIn() {
+      if (this.isLoggedIn) {
+        this.$router.push("/");
+      }
+    },
+  },
+  mounted() {
     if (this.isLoggedIn) {
-      this.$router.push("/admin");
+      this.$router.push("/");
     }
   },
 };
