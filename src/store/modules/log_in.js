@@ -68,8 +68,8 @@ const actions = {
         //   router.push("/404");
         //   return 0;
         // }
-        if (response.status == 401) {
-          return { login: "" };
+        if (response.status == 401 || response.status == 403) {
+          return { ...response, login: "" };
         }
         // if (response.status == 500) {
         //   router.push("/error");
