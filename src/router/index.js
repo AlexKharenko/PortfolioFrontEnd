@@ -67,6 +67,68 @@ const routes = [
       return import(/* webpackChunkName: "about" */ "../views/SignUp.vue");
     },
   },
+  {
+    path: "/admin",
+    name: "Admin",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(/* webpackChunkName: "about" */ "../views/Admin.vue");
+    },
+  },
+  {
+    path: "/admin/add/work",
+    name: "AddWork",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(/* webpackChunkName: "about" */ "../views/AddWork.vue");
+    },
+  },
+  {
+    path: "/admin/add/lang",
+    name: "AddLanguage",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(/* webpackChunkName: "about" */ "../views/AddLanguage.vue");
+    },
+  },
+  {
+    path: "/admin/add/details",
+    name: "AddDetails",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(/* webpackChunkName: "about" */ "../views/AddDetails.vue");
+    },
+  },
+  {
+    path: "/admin/edit/work",
+    name: "Edit work",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(/* webpackChunkName: "about" */ "../views/UpdateWork.vue");
+    },
+  },
+  {
+    path: "/admin/edit/details",
+    name: "Edit details",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(
+        /* webpackChunkName: "about" */ "../views/UpdateDetails.vue"
+      );
+    },
+  },
 ];
 
 const router = createRouter({
