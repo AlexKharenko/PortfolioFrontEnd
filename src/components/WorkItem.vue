@@ -41,7 +41,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .work-block {
   border-bottom: 1px solid var(--additional-dark-mode-color);
   padding-bottom: 20px;
