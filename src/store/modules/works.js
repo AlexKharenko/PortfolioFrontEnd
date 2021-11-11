@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-// import router from "@/router";
+import router from "@/router";
 
 const state = {
   languages: [],
@@ -14,6 +14,19 @@ const getters = {
 };
 
 const actions = {
+  async logout({ dispatch }) {
+    try {
+      await fetch(`${process.env.VUE_APP_SERVER}/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (e) {
+      router.push("/");
+    }
+    dispatch("changeLogInStatus", false);
+    router.push("/");
+  },
+
   async fetchAllLanguages({ commit }) {
     let response = await fetch(
       `${process.env.VUE_APP_SERVER}/works/get/alllang`,
@@ -115,13 +128,12 @@ const actions = {
   },
   async fetchAllWorksByLang({ commit }, data) {
     let response = await fetch(
-      `${process.env.VUE_APP_SERVER}/works/get/works`,
+      `${process.env.VUE_APP_SERVER}/works/get/works?language_id=${data.language_id}`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
       }
     );
     if (response.status == 200) {
@@ -135,15 +147,18 @@ const actions = {
     }
   },
   async fetchWork({ commit }, data) {
-    let response = await fetch(`${process.env.VUE_APP_SERVER}/works/get/work`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    let response = await fetch(
+      `${process.env.VUE_APP_SERVER}/works/get/work?work_id=${data.work_id}&language_id=${data.language_id}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     if (response.status == 200) {
       response = await response.json();
+      console.log(response);
       await commit("setWork", response.data);
     } else {
       response = await response.json();
@@ -194,7 +209,7 @@ const actions = {
   },
   async deleteWork({ commit }, data) {
     let response = await fetch(
-      `${process.env.VUE_APP_SERVER}/works/update/work`,
+      `${process.env.VUE_APP_SERVER}/works/delete/work`,
       {
         method: "DELETE",
         headers: {
