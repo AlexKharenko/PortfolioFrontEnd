@@ -83,6 +83,7 @@ export default {};
         }
       }
       .social-text {
+        display: none;
         visibility: hidden;
         opacity: 0;
         margin-right: 10px;
@@ -101,6 +102,7 @@ export default {};
         filter: invert(0.05);
       }
       a:hover ~ .social-text {
+        display: block;
         visibility: visible;
         opacity: 1;
       }
