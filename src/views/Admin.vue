@@ -6,7 +6,7 @@
         :btn_text="'Add Language'"
         target_page="/admin/add/lang"
       />
-      <!-- add button to logout -->
+      <ButtonFunction :btn_text="'Logout'" :function_do="logout" />
     </div>
     <h3 v-if="getAllWorks.length == 0">Not Found</h3>
     <div v-if="getAllWorks.length > 0" class="admin-works">
@@ -22,6 +22,7 @@
 
 <script>
 import ButtonRedirect from "@/components/ButtonRedirect.vue";
+import ButtonFunction from "@/components/ButtonFunction.vue";
 import WorkItemAdmin from "@/components/WorkItemAdmin.vue";
 import { mapActions, mapGetters } from "vuex";
 
@@ -29,27 +30,28 @@ export default {
   name: "Admin",
   components: {
     ButtonRedirect,
+    ButtonFunction,
     WorkItemAdmin,
   },
   computed: {
     ...mapGetters(["isLoggedIn", "getAllWorks"]),
   },
   methods: {
-    ...mapActions(["LogIn", "fetchAllWorks"]),
+    ...mapActions(["LogIn", "fetchAllWorks", "changeLogInStatus", "logout"]),
   },
-  // watch: {
-  //   isLoggedIn() {
-  //     if (!this.isLoggedIn) {
-  //       this.$router.push("/");
-  //     }
-  //   },
-  // },
+  watch: {
+    isLoggedIn() {
+      if (!this.isLoggedIn) {
+        this.$router.push("/");
+      }
+    },
+  },
   mounted() {
-    // if (!this.isLoggedIn) {
-    //   this.$router.push("/");
-    // } else {
-    this.fetchAllWorks();
-    // }
+    if (!this.isLoggedIn) {
+      this.$router.push("/");
+    } else {
+      this.fetchAllWorks();
+    }
   },
 };
 </script>
