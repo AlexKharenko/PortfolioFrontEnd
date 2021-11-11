@@ -10,10 +10,18 @@
           <p class="about-work-text">
             {{ work.work_details }}
           </p>
+          <p>
+            {{ work.language_short }}
+          </p>
           <WebPageLink
             :link="work.link"
-            :link_text="work.link"
+            :link_text="linkText"
             :type="'website'"
+          />
+          <WebPageLink
+            :link="work.git_link"
+            :link_text="'See on github'"
+            :type="'not-link'"
           />
         </div>
       </div>
@@ -22,7 +30,7 @@
       <ButtonRedirect :btn_text="'Edit details'" :target_page="editDetails" />
       <ButtonRedirect :btn_text="'Edit links'" :target_page="editLink" />
       <ButtonRedirect :btn_text="'Add details'" :target_page="addDetails" />
-      <ButtonFunction :btn_text="'Delete work'" :function_do="deleteWork" />
+      <ButtonFunction :btn_text="'Delete work'" :function_do="callFunction" />
     </div>
   </div>
 </template>
@@ -31,6 +39,7 @@
 import ButtonRedirect from "@/components/ButtonRedirect.vue";
 import ButtonFunction from "@/components/ButtonFunction.vue";
 import WebPageLink from "@/components/WebPageLink.vue";
+import { mapActions } from "vuex";
 
 export default {
   name: "WorkItem",
@@ -44,19 +53,24 @@ export default {
     ButtonFunction,
   },
   methods: {
-    deleteWork() {
-      console.log("delete");
+    ...mapActions(["deleteWork", "fetchAllWorks"]),
+    callFunction() {
+      this.deleteWork({ work_id: this.work.work_id });
+      this.fetchAllWorks();
     },
   },
   computed: {
+    linkText() {
+      return this.work.link.split("://")[1];
+    },
     editLink() {
-      return `/admin/edit/work?id=${1}`;
+      return `/admin/edit/work?work_id=${this.work.work_id}&language_id=${this.work.language_id}`;
     },
     editDetails() {
-      return `/admin/edit/details?id=${1}&language_id=${1}`;
+      return `/admin/edit/details?work_id=${this.work.work_id}&language_id=${this.work.language_id}`;
     },
     addDetails() {
-      return `/admin/add/details?id=${1}`;
+      return `/admin/add/details?work_id=${this.work.work_id}`;
     },
     imageUrl() {
       return `${this.work.cover_image_type}, ${this.work.cover_image}`;
