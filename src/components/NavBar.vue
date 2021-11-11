@@ -15,6 +15,9 @@
       <router-link to="/contacts">
         <p class="nav-link-text">Contacts</p>
       </router-link>
+      <router-link v-if="isLoggedIn" to="/admin">
+        <p class="nav-link-text">Admin</p>
+      </router-link>
       <div class="btn-toggle-mode" @click="darkModeClick()"></div>
     </div>
   </div>
@@ -35,7 +38,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["isDarkModeOn"]),
+    ...mapGetters(["isDarkModeOn", "isLoggedIn"]),
   },
 };
 </script>
