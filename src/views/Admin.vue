@@ -6,12 +6,15 @@
         :btn_text="'Add Language'"
         target_page="/admin/add/lang"
       />
+      <!-- add button to logout -->
     </div>
-    <div class="admin-works">
+    <h3 v-if="getAllWorks.length == 0">Not Found</h3>
+    <div v-if="getAllWorks.length > 0" class="admin-works">
       <WorkItemAdmin
         class="margin-top-10"
-        v-for="work in works"
+        v-for="work in getAllWorks"
         :key="work.id"
+        :work="work"
       />
     </div>
   </div>
@@ -20,6 +23,7 @@
 <script>
 import ButtonRedirect from "@/components/ButtonRedirect.vue";
 import WorkItemAdmin from "@/components/WorkItemAdmin.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Admin",
@@ -27,10 +31,25 @@ export default {
     ButtonRedirect,
     WorkItemAdmin,
   },
-  data() {
-    return {
-      works: [{ id: 1 }, { id: 2 }],
-    };
+  computed: {
+    ...mapGetters(["isLoggedIn", "getAllWorks"]),
+  },
+  methods: {
+    ...mapActions(["LogIn", "fetchAllWorks"]),
+  },
+  // watch: {
+  //   isLoggedIn() {
+  //     if (!this.isLoggedIn) {
+  //       this.$router.push("/");
+  //     }
+  //   },
+  // },
+  mounted() {
+    // if (!this.isLoggedIn) {
+    //   this.$router.push("/");
+    // } else {
+    this.fetchAllWorks();
+    // }
   },
 };
 </script>

@@ -97,13 +97,13 @@ export default {
   watch: {
     isLoggedIn() {
       if (this.isLoggedIn) {
-        this.$router.push("/");
+        this.$router.push("/admin");
       }
     },
   },
   mounted() {
     if (this.isLoggedIn) {
-      this.$router.push("/");
+      this.$router.push("/admin");
     }
   },
 };

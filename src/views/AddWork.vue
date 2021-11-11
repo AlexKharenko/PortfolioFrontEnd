@@ -6,7 +6,7 @@
       <div class="input-block">
         <p class="form-field-title">Language</p>
         <CustomSelect
-          :items="languages"
+          :items="getAllLanguages"
           class="form-field"
           obj_key="language"
           add_option_name="language"
@@ -47,6 +47,7 @@
       <div class="input-block">
         <p class="form-field-title">Work details</p>
         <textarea
+          v-model="work_details"
           class="form-field"
           type="text"
           name="work_details"
@@ -119,10 +120,6 @@ export default {
     return {
       work_name: "",
       work_details: "",
-      languages: [
-        { id: 1, language: "english" },
-        { id: 2, language: "spanish" },
-      ],
       language_id: "",
       link: "",
       git_link: "",
@@ -139,7 +136,7 @@ export default {
     ButtonRedirect,
   },
   computed: {
-    ...mapGetters(["isLoggedIn"]),
+    ...mapGetters(["isLoggedIn", "getAllLanguages"]),
   },
   validations() {
     return {
@@ -151,7 +148,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["LogIn"]),
+    ...mapActions(["LogIn", "fetchAllLanguages", "createWork"]),
     saveLanguageId(data) {
       this.language_id = data;
     },
@@ -175,25 +172,31 @@ export default {
         return;
       }
       const data = {
-        login: this.login,
-        password: this.password,
+        work_name: this.work_name,
+        work_details: this.work_details,
+        language_id: this.language_id,
+        link: this.link,
+        git_link: this.git_link,
+        image: this.image,
+        image_type: this.image_type,
       };
-      const err = await this.LogIn(data);
-      this.error = err;
+      const { error, message } = await this.createWork(data);
+      this.error = message || error;
     },
   },
-  // watch: {
-  //   isLoggedIn() {
-  //     if (!this.isLoggedIn) {
-  //       this.$router.push("/");
-  //     }
-  //   },
-  // },
-  // mounted() {
-  //   if (!this.isLoggedIn) {
-  //     this.$router.push("/");
-  //   }
-  // },
+  watch: {
+    isLoggedIn() {
+      if (!this.isLoggedIn) {
+        this.$router.push("/");
+      }
+    },
+  },
+  mounted() {
+    if (!this.isLoggedIn) {
+      this.$router.push("/");
+    }
+    this.fetchAllLanguages();
+  },
 };
 </script>
 

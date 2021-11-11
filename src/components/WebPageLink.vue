@@ -1,5 +1,10 @@
 <template>
-  <a :class="type" class="link" :href="link || '#'" target="_blank">
+  <a
+    :class="type"
+    class="link"
+    :href="`https://${link}` || '#'"
+    target="_blank"
+  >
     <p class="website-link-text">{{ link_text || "waiting..." }}</p>
   </a>
 </template>
