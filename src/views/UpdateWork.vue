@@ -40,6 +40,7 @@ export default {
     return {
       link: "",
       git_link: "",
+      work_id: this.$route.query.work_id,
       error: "",
     };
   },
@@ -47,34 +48,55 @@ export default {
     ButtonSubmit,
   },
   computed: {
-    ...mapGetters(["isLoggedIn"]),
+    ...mapGetters(["isLoggedIn", "getWork"]),
   },
   methods: {
-    ...mapActions(["LogIn"]),
+    ...mapActions(["fetchWork", "updateWork"]),
+    redirectToAdminIf(message) {
+      if (!this.error) {
+        alert(message);
+        this.$router.push("/admin");
+      }
+    },
     async handleSubmit() {
       if (this.link == "" && this.git_link == "") {
         this.error = "All fields shouldn`t be empty!";
         return;
       }
       const data = {
-        login: this.login,
-        password: this.password,
+        link: this.link,
+        git_link: this.git_link,
+        work_id: this.work_id,
       };
-      const err = await this.LogIn(data);
+      const { err, message } = await this.updateWork(data);
       this.error = err;
+      this.redirectToAdminIf(message);
     },
   },
-  // watch: {
-  //   isLoggedIn() {
-  //     if (!this.isLoggedIn) {
-  //       this.$router.push("/");
-  //     }
-  //   },
-  // },
-  // mounted() {
-  //   if (!this.isLoggedIn) {
-  //     this.$router.push("/");
-  //   }
-  // },
+  watch: {
+    isLoggedIn() {
+      if (!this.isLoggedIn) {
+        this.$router.push("/");
+      }
+    },
+    getWork() {
+      this.link = this.getWork.link;
+      this.git_link = this.getWork.git_link;
+    },
+  },
+  mounted() {
+    if (!this.isLoggedIn) {
+      this.$router.push("/");
+    } else {
+      if (!this.$route.query.work_id || !this.$route.query.language_id) {
+        this.$router.push("/admin");
+        return;
+      }
+      this.fetchWork({
+        language_id: this.$route.query.language_id,
+        work_id: this.work_id,
+      });
+    }
+  },
 };
 </script>

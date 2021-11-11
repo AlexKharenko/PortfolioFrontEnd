@@ -90,7 +90,13 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["LogIn"]),
+    ...mapActions(["addLanguage"]),
+    redirectToAdminIf(message) {
+      if (!this.error) {
+        alert(message);
+        this.$router.push("/admin");
+      }
+    },
     upper() {
       this.language_short = this.language_short.toUpperCase();
     },
@@ -100,24 +106,25 @@ export default {
         return 0;
       }
       const data = {
-        login: this.login,
-        password: this.password,
+        language_short: this.language_short,
+        language: this.language,
       };
-      const err = await this.LogIn(data);
+      const { err, message } = await this.addLanguage(data);
       this.error = err;
+      this.redirectToAdminIf(message);
     },
   },
-  // watch: {
-  //   isLoggedIn() {
-  //     if (!this.isLoggedIn) {
-  //       this.$router.push("/");
-  //     }
-  //   },
-  // },
-  // mounted() {
-  //   if (!this.isLoggedIn) {
-  //     this.$router.push("/");
-  //   }
-  // },
+  watch: {
+    isLoggedIn() {
+      if (!this.isLoggedIn) {
+        this.$router.push("/");
+      }
+    },
+  },
+  mounted() {
+    if (!this.isLoggedIn) {
+      this.$router.push("/");
+    }
+  },
 };
 </script>

@@ -149,6 +149,12 @@ export default {
   },
   methods: {
     ...mapActions(["LogIn", "fetchAllLanguages", "createWork"]),
+    redirectToAdminIf(message) {
+      if (!this.error) {
+        alert(message);
+        this.$router.push("/admin");
+      }
+    },
     saveLanguageId(data) {
       this.language_id = data;
     },
@@ -181,7 +187,8 @@ export default {
         image_type: this.image_type,
       };
       const { error, message } = await this.createWork(data);
-      this.error = message || error;
+      this.error = error;
+      this.redirectToAdminIf(message);
     },
   },
   watch: {

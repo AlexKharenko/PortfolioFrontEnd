@@ -17,6 +17,7 @@
       <div class="input-block">
         <p class="form-field-title">Work details</p>
         <textarea
+          v-model.trim="work_details"
           class="form-field"
           type="text"
           name="work_details"
@@ -30,19 +31,17 @@
 </template>
 
 <script>
-import useVuelidate from "@vuelidate/core";
 import { mapActions, mapGetters } from "vuex";
 import ButtonSubmit from "@/components/ButtonSubmit.vue";
 
 export default {
   name: "AddLanguage",
-  setup() {
-    return { v$: useVuelidate() };
-  },
   data() {
     return {
       work_name: "",
       work_details: "",
+      work_id: this.$route.query.work_id,
+      language_id: this.$route.query.language_id,
       error: "",
     };
   },
@@ -50,38 +49,56 @@ export default {
     ButtonSubmit,
   },
   computed: {
-    ...mapGetters(["isLoggedIn"]),
+    ...mapGetters(["isLoggedIn", "getWork"]),
   },
   methods: {
-    ...mapActions(["LogIn"]),
-    async handleSubmit() {
-      this.v$.$touch();
-      if (this.v$.$error) {
-        return 0;
+    ...mapActions(["LogIn", "fetchWork", "updateWorkDetails"]),
+    redirectToAdminIf(message) {
+      if (!this.error) {
+        alert(message);
+        this.$router.push("/admin");
       }
+    },
+    async handleSubmit() {
       if (this.work_name == "" && this.work_details == "") {
         this.error = "All fields shouldn`t be empty!";
         return;
       }
       const data = {
-        login: this.login,
-        password: this.password,
+        work_name: this.work_name,
+        work_details: this.work_details,
+        work_id: this.work_id,
+        language_id: this.language_id,
       };
-      const err = await this.LogIn(data);
+      const { err, message } = await this.updateWorkDetails(data);
       this.error = err;
+      this.redirectToAdminIf(message);
     },
   },
-  // watch: {
-  //   isLoggedIn() {
-  //     if (!this.isLoggedIn) {
-  //       this.$router.push("/");
-  //     }
-  //   },
-  // },
-  // mounted() {
-  //   if (!this.isLoggedIn) {
-  //     this.$router.push("/");
-  //   }
-  // },
+  watch: {
+    isLoggedIn() {
+      if (!this.isLoggedIn) {
+        this.$router.push("/");
+      }
+    },
+    getWork() {
+      this.work_name = this.getWork.work_name;
+      this.work_details = this.getWork.work_details;
+    },
+  },
+  mounted() {
+    if (!this.isLoggedIn) {
+      this.$router.push("/");
+    } else {
+      if (!this.$route.query.work_id || !this.$route.query.language_id) {
+        this.$router.push("/admin");
+        return;
+      }
+      this.fetchWork({
+        language_id: this.language_id,
+        work_id: this.work_id,
+      });
+    }
+  },
 };
 </script>

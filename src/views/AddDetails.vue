@@ -6,7 +6,7 @@
       <div class="input-block">
         <p class="form-field-title">Language</p>
         <CustomSelect
-          :items="languages"
+          :items="getAllLanguages"
           obj_key="language"
           add_option_name="language"
           @SelectResult="saveLanguageId"
@@ -17,7 +17,10 @@
         >
           Required field
         </p>
-        <ButtonFunction :btn_text="'Add language'" :function_do="work" />
+        <ButtonRedirect
+          :btn_text="'Add language'"
+          :target_page="'/admin/add/lang'"
+        />
       </div>
       <div class="input-block">
         <p class="form-field-title">Work title</p>
@@ -57,7 +60,7 @@ import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import { mapActions, mapGetters } from "vuex";
 import ButtonSubmit from "@/components/ButtonSubmit.vue";
-import ButtonFunction from "@/components/ButtonFunction.vue";
+import ButtonRedirect from "@/components/ButtonRedirect.vue";
 import CustomSelect from "@/components/CustomSelect.vue";
 
 export default {
@@ -70,20 +73,17 @@ export default {
       language_id: "",
       work_name: "",
       work_details: "",
-      languages: [
-        { id: 1, language: "english" },
-        { id: 2, language: "spanish" },
-      ],
+      work_id: this.$route.query.work_id,
       error: "",
     };
   },
   components: {
     ButtonSubmit,
-    ButtonFunction,
+    ButtonRedirect,
     CustomSelect,
   },
   computed: {
-    ...mapGetters(["isLoggedIn"]),
+    ...mapGetters(["isLoggedIn", "getAllLanguages"]),
   },
   validations() {
     return {
@@ -92,12 +92,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["LogIn"]),
+    ...mapActions(["addWorkDetails", "fetchAllLanguages"]),
+    redirectToAdminIf(message) {
+      if (!this.error) {
+        alert(message);
+        this.$router.push("/admin");
+      }
+    },
     saveLanguageId(data) {
       this.language_id = data;
-    },
-    work() {
-      console.log("click");
     },
     async handleSubmit() {
       this.v$.$touch();
@@ -105,24 +108,33 @@ export default {
         return 0;
       }
       const data = {
-        login: this.login,
-        password: this.password,
+        language_id: this.language_id,
+        work_name: this.work_name,
+        work_details: this.work_details,
+        work_id: this.work_id,
       };
-      const err = await this.LogIn(data);
+      const { err, message } = await this.addWorkDetails(data);
       this.error = err;
+      this.redirectToAdminIf(message);
     },
   },
-  // watch: {
-  //   isLoggedIn() {
-  //     if (!this.isLoggedIn) {
-  //       this.$router.push("/");
-  //     }
-  //   },
-  // },
-  // mounted() {
-  //   if (!this.isLoggedIn) {
-  //     this.$router.push("/");
-  //   }
-  // },
+  watch: {
+    isLoggedIn() {
+      if (!this.isLoggedIn) {
+        this.$router.push("/");
+      }
+    },
+  },
+  mounted() {
+    if (!this.isLoggedIn) {
+      this.$router.push("/");
+    } else {
+      if (!this.$route.query.work_id) {
+        this.$router.push("/admin");
+        return;
+      }
+      this.fetchAllLanguages();
+    }
+  },
 };
 </script>
