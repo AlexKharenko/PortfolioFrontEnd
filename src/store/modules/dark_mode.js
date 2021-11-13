@@ -1,5 +1,5 @@
 const state = {
-  dark_mode_on: false,
+  dark_mode_on: JSON.parse(localStorage.getItem("dark_mode")) || false,
 };
 
 const getters = {
@@ -8,6 +8,7 @@ const getters = {
 
 const actions = {
   changeDarkModeActivity({ commit }, status) {
+    localStorage.setItem("dark_mode", JSON.stringify(status));
     commit("setDarkModeActivity", status);
   },
 };
