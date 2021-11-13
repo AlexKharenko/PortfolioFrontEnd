@@ -2,10 +2,20 @@
   <div class="contacts">
     <div class="contatcs-me-title">
       <h1>Feel Free To Text Me</h1>
-      <h3>Watch my <a href="#" target="_blank">CV</a> here</h3>
+      <h3>
+        Watch my
+        <a
+          href="https://drive.google.com/file/d/1LztOOw8Mv8v2bU1JVWLqzs1XpjkdOvjT/view?usp=sharing"
+          target="_blank"
+          >CV</a
+        >
+        here
+      </h3>
+      <p class="email">oleksiikharenko@gmail.com</p>
     </div>
+    <h3 class="response-result" v-if="error">{{ error }}</h3>
     <div class="email-form">
-      <form v-on:submit.prevent="onSubmit">
+      <form v-on:submit.prevent="handleSubmit">
         <div class="field-block">
           <p class="field-title">Email</p>
           <input
@@ -13,9 +23,15 @@
             type="email"
             name="email_from"
             id="email_from"
-            v-model="email_from"
+            v-model.trim="email_from"
             placeholder="Write your email"
           />
+          <p
+            v-if="v$.email_from.$dirty && v$.email_from.required.$invalid"
+            class="invalid-message"
+          >
+            Required field
+          </p>
         </div>
         <div class="field-block">
           <p class="field-title">Subject</p>
@@ -24,9 +40,15 @@
             type="text"
             name="subject"
             id="subject"
-            v-model="subject"
+            v-model.trim="subject"
             placeholder="Subject"
           />
+          <p
+            v-if="v$.subject.$dirty && v$.subject.required.$invalid"
+            class="invalid-message"
+          >
+            Required field
+          </p>
         </div>
         <div class="field-block">
           <p class="field-title">Message</p>
@@ -45,6 +67,12 @@
             <div class="words-counter-text">Words:</div>
             <span>{{ words_left_counter }}</span>
           </div>
+          <p
+            v-if="v$.message.$dirty && v$.message.required.$invalid"
+            class="invalid-message"
+          >
+            Required field
+          </p>
         </div>
         <ButtonSubmit :btn_text="'Send message'" />
       </form>
@@ -53,10 +81,16 @@
 </template>
 
 <script>
+import useVuelidate from "@vuelidate/core";
+import { required } from "@vuelidate/validators";
+import { mapActions } from "vuex";
 import ButtonSubmit from "@/components/ButtonSubmit.vue";
 
 export default {
   name: "Contacts",
+  setup() {
+    return { v$: useVuelidate() };
+  },
   data() {
     return {
       email_from: "",
@@ -65,12 +99,35 @@ export default {
       max_words: 200,
       words_left_counter: 200,
       can_type: true,
+      error: "",
     };
   },
   components: {
     ButtonSubmit,
   },
+  validations() {
+    return {
+      email_from: { required },
+      subject: { required },
+      message: { required },
+    };
+  },
   methods: {
+    ...mapActions(["sendEmail"]),
+    async handleSubmit() {
+      this.v$.$touch();
+      if (this.v$.$error) {
+        return 0;
+      }
+
+      const data = {
+        from: this.email_from,
+        subject: this.subject,
+        message: this.message,
+      };
+      const { err, message } = await this.sendEmail(data);
+      this.error = err || message;
+    },
     countWords(text) {
       text = text.replace(/(^\s*)|(\s*$)/gi, ""); //exclude  start and end white-space
       text = text.replace(/[ ]{2,}/gi, " "); //2 or more space to 1
@@ -121,9 +178,15 @@ export default {
   padding: 20px 80px;
   display: flex;
   flex-direction: column;
+  .response-result {
+    text-align: center;
+  }
   .contatcs-me-title {
     text-align: center;
     margin-bottom: 30px;
+  }
+  .email {
+    padding-top: 20px;
   }
   .email-form {
     display: flex;
@@ -173,6 +236,26 @@ export default {
         #message {
           border: 2px solid var(--additional-dark-mode-color);
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .contacts {
+    padding: 20px 20px;
+  }
+}
+@media (max-width: 490px) {
+  .contacts {
+    .email-form {
+      .field-block {
+        .input-field {
+          width: 250px;
+        }
+      }
+      .btn-submit {
+        margin-top: 10px;
       }
     }
   }
