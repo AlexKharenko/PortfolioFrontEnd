@@ -42,8 +42,8 @@ const actions = {
       response = await response.json();
       await commit("setLanguages", response.data);
     } else {
-      response = await response.json();
       if (response.status === 404) {
+        response = await response.json();
         await commit("setLanguages", []);
       }
     }
@@ -120,15 +120,16 @@ const actions = {
       response = await response.json();
       await commit("setWorks", response.data);
     } else {
-      response = await response.json();
       if (response.status === 404) {
+        response = await response.json();
         await commit("setWorks", []);
       }
     }
   },
   async fetchAllWorksByLang({ commit }, data) {
+    await commit("setWorks", []);
     let response = await fetch(
-      `${process.env.VUE_APP_SERVER}/works/get/works?language_id=${data.language_id}`,
+      `${process.env.VUE_APP_SERVER}/works/get/works?language_short=${data.language_short}`,
       {
         method: "GET",
         headers: {
@@ -140,15 +141,16 @@ const actions = {
       response = await response.json();
       await commit("setWorks", response.data);
     } else {
-      response = await response.json();
       if (response.status === 404) {
+        response = await response.json();
         await commit("setWorks", []);
       }
     }
   },
   async fetchWork({ commit }, data) {
+    await commit("setWork", "");
     let response = await fetch(
-      `${process.env.VUE_APP_SERVER}/works/get/work?work_id=${data.work_id}&language_id=${data.language_id}`,
+      `${process.env.VUE_APP_SERVER}/works/get/work?work_id=${data.work_id}&language_short=${data.language_short}`,
       {
         method: "GET",
         headers: {
@@ -158,11 +160,10 @@ const actions = {
     );
     if (response.status == 200) {
       response = await response.json();
-      console.log(response);
       await commit("setWork", response.data);
     } else {
-      response = await response.json();
       if (response.status === 404) {
+        response = await response.json();
         await commit("setWork", "");
       }
     }

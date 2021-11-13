@@ -11,7 +11,8 @@ const getters = {
 };
 
 const actions = {
-  async SignUp(data) {
+  // eslint-disable-next-line no-unused-vars
+  async SignUp({ commit }, data) {
     let response = await fetch(`${process.env.VUE_APP_SERVER}/signup`, {
       method: "POST",
       headers: {
@@ -24,7 +25,6 @@ const actions = {
       router.push("/login");
       return {};
     } else {
-      response = await response.json();
       if (
         (response.status =
           403 && response.message == "Forbiden to create account")
@@ -69,7 +69,7 @@ const actions = {
         //   return 0;
         // }
         if (response.status == 401 || response.status == 403) {
-          return { ...response, login: "" };
+          return response.json();
         }
         // if (response.status == 500) {
         //   router.push("/error");
@@ -80,7 +80,7 @@ const actions = {
         console.error(error);
         // router.push("/error");
       });
-    await commit("setUser", res.user);
+    await commit("setUser", res.user || "");
     dispatch("changeLogInStatus", res.success);
   },
   changeLogInStatus({ commit }, status) {
