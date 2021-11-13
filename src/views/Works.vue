@@ -1,9 +1,11 @@
 <template>
   <div class="works">
     <div class="works-title">
-      <h1>Works</h1>
+      <h1>{{ $t("works.title") }}</h1>
     </div>
-    <h3 v-if="getAllWorks.length == 0" class="no-works">No Works</h3>
+    <h3 v-if="getAllWorks.length == 0" class="no-works">
+      {{ $t("works.no_works") }}
+    </h3>
     <div v-if="getAllWorks.length > 0" class="works-container">
       <WorkItem v-for="work in getAllWorks" :key="work.id" :work="work" />
     </div>
@@ -21,12 +23,20 @@ export default {
   },
   computed: {
     ...mapGetters(["getAllWorks"]),
+    upperLanguage() {
+      return this.$i18n.locale.toUpperCase();
+    },
   },
   methods: {
     ...mapActions(["fetchAllWorksByLang"]),
   },
+  watch: {
+    "$i18n.locale": function () {
+      this.fetchAllWorksByLang({ language_short: this.upperLanguage });
+    },
+  },
   mounted() {
-    this.fetchAllWorksByLang({ language_short: "EN" });
+    this.fetchAllWorksByLang({ language_short: this.upperLanguage });
   },
 };
 </script>

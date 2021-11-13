@@ -12,24 +12,26 @@
     </div>
     <div class="nav-right-part" :class="active ? 'active' : ''">
       <router-link to="/about">
-        <p class="nav-link-text">About me</p>
+        <p class="nav-link-text">{{ $t("nav_bar.about") }}</p>
       </router-link>
       <router-link to="/works">
-        <p class="nav-link-text">Works</p>
+        <p class="nav-link-text">{{ $t("nav_bar.works") }}</p>
       </router-link>
       <router-link to="/contacts">
-        <p class="nav-link-text">Contacts</p>
+        <p class="nav-link-text">{{ $t("nav_bar.contacts") }}</p>
       </router-link>
       <router-link v-if="isLoggedIn" to="/admin">
-        <p class="nav-link-text">Admin</p>
+        <p class="nav-link-text">{{ $t("nav_bar.admin") }}</p>
       </router-link>
       <div class="btn-toggle-mode" @click="darkModeClick()"></div>
+      <LanguageSelect />
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import LanguageSelect from "@/components/LanguageSelect.vue";
 
 export default {
   name: "NavBar",
@@ -38,6 +40,9 @@ export default {
       active: false,
     };
   },
+  components: {
+    LanguageSelect,
+  },
   methods: {
     ...mapActions(["changeDarkModeActivity"]),
     darkModeClick() {
@@ -45,6 +50,11 @@ export default {
     },
     toggleMenu() {
       this.active = !this.active;
+    },
+  },
+  watch: {
+    $route() {
+      this.active = false;
     },
   },
   computed: {
@@ -118,6 +128,7 @@ export default {
       border-bottom: 2px solid black;
     }
     .btn-toggle-mode {
+      margin-top: 3px;
       margin-left: 20px;
       display: flex;
       width: 34px;
@@ -196,6 +207,9 @@ export default {
       .btn-toggle-mode {
         margin-top: 20px;
         align-self: center;
+      }
+      .locale-changer {
+        margin-top: 20px;
       }
     }
     .nav-right-part.active {

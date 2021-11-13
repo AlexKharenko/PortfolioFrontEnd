@@ -4,13 +4,11 @@
       <h1 class="text-h1">Front-end developer</h1>
       <h3 class="text-h3">Oleksii Kharenko</h3>
       <p class="text-home-p">
-        You are visiting my portfolio website. Here you can find out all
-        information you need to know about me. See my works, even contact me via
-        email.
+        {{ $t("home.message") }}
       </p>
       <div class="contact-me-block">
         <router-link to="/contacts" class="contact-me-link">
-          <p class="contact-me-link-text">Contact me</p>
+          <p class="contact-me-link-text">{{ $t("home.btn_text") }}</p>
           <div class="arrow-link">
             <img
               src="../assets/main_screen/right-chevron.png"

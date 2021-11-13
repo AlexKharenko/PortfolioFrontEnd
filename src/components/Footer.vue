@@ -1,6 +1,6 @@
 <template>
   <div class="footer-block">
-    <div class="text">Made with Vue3</div>
+    <div class="text">{{ $t("footer") }}</div>
   </div>
 </template>
 

@@ -1,15 +1,14 @@
 <template>
   <div class="contacts">
     <div class="contatcs-me-title">
-      <h1>Feel Free To Text Me</h1>
+      <h1>{{ $t("contacts.h1") }}</h1>
       <h3>
-        Watch my
+        {{ $t("contacts.cv_before") }}
         <a
           href="https://drive.google.com/file/d/1LztOOw8Mv8v2bU1JVWLqzs1XpjkdOvjT/view?usp=sharing"
           target="_blank"
-          >CV</a
+          >{{ $t("contacts.cv_name") }}</a
         >
-        here
       </h3>
       <p class="email">oleksiikharenko@gmail.com</p>
     </div>
@@ -17,41 +16,41 @@
     <div class="email-form">
       <form v-on:submit.prevent="handleSubmit">
         <div class="field-block">
-          <p class="field-title">Email</p>
+          <p class="field-title">{{ $t("contacts.email") }}</p>
           <input
             class="input-field"
             type="email"
             name="email_from"
             id="email_from"
             v-model.trim="email_from"
-            placeholder="Write your email"
+            :placeholder="$t('contacts.email_place')"
           />
           <p
             v-if="v$.email_from.$dirty && v$.email_from.required.$invalid"
             class="invalid-message"
           >
-            Required field
+            {{ $t("form.required") }}
           </p>
         </div>
         <div class="field-block">
-          <p class="field-title">Subject</p>
+          <p class="field-title">{{ $t("contacts.subject") }}</p>
           <input
             class="input-field"
             type="text"
             name="subject"
             id="subject"
             v-model.trim="subject"
-            placeholder="Subject"
+            :placeholder="$t('contacts.subject')"
           />
           <p
             v-if="v$.subject.$dirty && v$.subject.required.$invalid"
             class="invalid-message"
           >
-            Required field
+            {{ $t("form.required") }}
           </p>
         </div>
         <div class="field-block">
-          <p class="field-title">Message</p>
+          <p class="field-title">{{ $t("contacts.message") }}</p>
           <textarea
             class="input-field"
             type="text"
@@ -61,20 +60,20 @@
             @keydown="filterSpaceIfNeeded"
             @input="checkMaxWords()"
             @paste="limitPasting"
-            placeholder="Write the message"
+            :placeholder="$t('contacts.message_place')"
           />
-          <div class="words-counter-block">
-            <div class="words-counter-text">Words:</div>
-            <span>{{ words_left_counter }}</span>
-          </div>
           <p
             v-if="v$.message.$dirty && v$.message.required.$invalid"
             class="invalid-message"
           >
-            Required field
+            {{ $t("form.required") }}
           </p>
+          <div class="words-counter-block">
+            <div class="words-counter-text">{{ $t("contacts.words") }}:</div>
+            <span>{{ words_left_counter }}</span>
+          </div>
         </div>
-        <ButtonSubmit :btn_text="'Send message'" />
+        <ButtonSubmit :btn_text="$t('contacts.btn_text')" />
       </form>
     </div>
   </div>
