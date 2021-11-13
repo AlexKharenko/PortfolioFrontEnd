@@ -115,4 +115,31 @@ export default {
     }
   }
 }
+
+@media (max-width: 700px) {
+  .home {
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 40px 40px;
+    .right-part {
+      .image-container {
+        margin: 0 10px 20px 10px;
+        img {
+          height: 50vh;
+        }
+      }
+    }
+  }
+}
+@media (min-height: 900px) {
+  .home {
+    .right-part {
+      .image-container {
+        img {
+          height: 60vh;
+        }
+      }
+    }
+  }
+}
 </style>

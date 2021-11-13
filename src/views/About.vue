@@ -40,4 +40,18 @@
     }
   }
 }
+@media (max-width: 700px) {
+  .about {
+    padding: 20px 20px;
+    .about-me-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .about-me-text-block {
+      .about-me-paragraph {
+        text-indent: 45px;
+      }
+    }
+  }
+}
 </style>
