@@ -1,5 +1,5 @@
 <template>
-  <div class="work-block">
+  <div class="work-admin-block">
     <div class="work-details-block">
       <div class="work-img">
         <img :src="imageUrl" alt="Work Image" />
@@ -19,6 +19,7 @@
             :type="'website'"
           />
           <WebPageLink
+            v-if="work.git_link"
             :link="work.git_link"
             :link_text="'See on github'"
             :type="'not-link'"
@@ -55,8 +56,13 @@ export default {
   methods: {
     ...mapActions(["deleteWork", "fetchAllWorks"]),
     callFunction() {
-      this.deleteWork({ work_id: this.work.work_id });
-      this.fetchAllWorks();
+      const result = confirm(
+        `Do you want to delete work: ${this.work.work_name}?`
+      );
+      if (result) {
+        this.deleteWork({ work_id: this.work.work_id });
+        this.fetchAllWorks();
+      }
     },
   },
   computed: {
@@ -64,10 +70,10 @@ export default {
       return this.work.link.split("://")[1];
     },
     editLink() {
-      return `/admin/edit/work?work_id=${this.work.work_id}&language_id=${this.work.language_id}`;
+      return `/admin/edit/work?work_id=${this.work.work_id}&language_short=${this.work.language_short}`;
     },
     editDetails() {
-      return `/admin/edit/details?work_id=${this.work.work_id}&language_id=${this.work.language_id}`;
+      return `/admin/edit/details?work_id=${this.work.work_id}&language_short=${this.work.language_short}`;
     },
     addDetails() {
       return `/admin/add/details?work_id=${this.work.work_id}`;
@@ -80,7 +86,7 @@ export default {
 </script>
 
 <style lang="scss">
-.work-block {
+.work-admin-block {
   border-bottom: 1px solid var(--additional-dark-mode-color);
   padding-bottom: 20px;
   display: flex;
