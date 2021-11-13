@@ -3,11 +3,13 @@
     <NavBar />
     <router-view class="main" />
     <Socials />
+    <Footer />
   </div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import Footer from "@/components/Footer.vue";
 import Socials from "@/components/Socials.vue";
 import { mapGetters, mapActions } from "vuex";
 
@@ -15,6 +17,7 @@ export default {
   components: {
     NavBar,
     Socials,
+    Footer,
   },
   computed: {
     ...mapGetters(["isDarkModeOn"]),
@@ -62,7 +65,7 @@ export default {
   min-height: 100vh;
   transition: 0.4s ease-in-out;
   .main {
-    min-height: calc(100vh - 65px);
+    min-height: calc(100vh - 60px - 40px);
     max-width: 1500px;
     position: relative;
     left: 50%;
