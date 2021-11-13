@@ -1,45 +1,26 @@
 <template>
-  <div class="work-details">
+  <div class="work-details" v-if="work">
     <div class="work-title">
-      <h1>Works</h1>
+      <h1>{{ work.work_name }}</h1>
     </div>
     <div class="work-details-block">
       <div class="img-block">
-        <img src="../assets/Screenshot.png" alt="" />
+        <img :src="imageUrl" :alt="`${this.work.work_name} Image`" />
       </div>
       <div class="data-block">
         <div class="text-details">
           <p class="details-paragraph">
-            Hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
-            eligendi laboriosam eveniet! Voluptates aspernatur, animi nostrum
-            quaerat tempore, porro est unde sunt totam cupiditate ullam repellat
-            harum voluptas repudiandae? Veritatis. Inventore quisquam atque
-            illum adipisci in quas nihil quo doloribus molestias dignissimos!
-            Commodi, neque accusamus? Nobis voluptas error atque quo labore
-            saepe, quae est. Voluptatibus accusamus deleniti officia incidunt
-            quod! Placeat sit, blanditiis libero voluptates architecto
-            temporibus dolores esse, quo accusantium ea, cumque ab! Placeat,
-            animi magnam, eius repellat enim quo reprehenderit atque autem
-            ratione mollitia id accusamus, incidunt quidem. Rem reiciendis,
-            saepe laboriosam delectus quaerat iure libero quod ab tempore, fugit
-            dolorum. Expedita reiciendis ut labore aut nostrum aliquid officia
-            harum. Quos non doloremque, inventore tenetur tempora veniam totam.
-            Eveniet laboriosam aut ipsam id soluta impedit? Nobis repellendus
-            eligendi nesciunt consectetur voluptas, corporis quos deserunt
-            adipisci porro sint, possimus doloremque, officiis quis molestiae
-            odio optio nostrum aperiam placeat eaque! Repudiandae nihil suscipit
-            mollitia nemo doloremque. Ipsa a officia in eius optio tenetur!
-            Laboriosam nesciunt, natus excepturi explicabo, corrupti aperiam et
-            amet culpa quo harum modi vitae dolores, facilis fuga. Voluptatibus
-            perspiciatis tempora aliquid quod voluptates odio at consequuntur
-            corrupti adipisci dicta harum hic fugiat, id consectetur nesciunt ea
-            amet, explicabo quaerat? Earum nesciunt porro perspiciatis ullam rem
-            aperiam eius.
+            {{ work.work_details }}
           </p>
         </div>
-        <WebPageLink :link="'#'" :link_text="'work.com'" :type="'website'" />
         <WebPageLink
-          :link="'#'"
+          :link="work.link"
+          :link_text="linkText"
+          :type="'website'"
+        />
+        <WebPageLink
+          v-if="work.git_link"
+          :link="work.git_link"
           :link_text="'See on github'"
           :type="'not-link'"
         />
@@ -50,11 +31,40 @@
 
 <script>
 import WebPageLink from "@/components/WebPageLink.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "WorkDetails",
+  data() {
+    return {
+      work: "",
+    };
+  },
   components: {
     WebPageLink,
+  },
+  computed: {
+    ...mapGetters(["getWork"]),
+    linkText() {
+      return this.work.link.split("://")[1];
+    },
+    imageUrl() {
+      return `${this.work.cover_image_type}, ${this.work.cover_image}`;
+    },
+  },
+  methods: {
+    ...mapActions(["fetchWork"]),
+  },
+  watch: {
+    getWork() {
+      this.work = this.getWork;
+    },
+  },
+  mounted() {
+    this.fetchWork({
+      language_short: "EN",
+      work_id: this.$route.params.id,
+    });
   },
 };
 </script>
