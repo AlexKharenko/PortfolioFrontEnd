@@ -1,3 +1,32 @@
 {
-  "message": "hello i18n !!"
+  "nav_bar":{
+    "about":"About me",
+    "works": "Works",
+    "contacts": "Contacts",
+    "admin": "Admin"
+  },
+  "works": {
+    "title": "Works",
+    "no_works": "No works"
+  },
+  "footer": "Made with Vue3",
+  "home": {
+    "message": "You are visiting my portfolio website. Here you can find out all information you need to know about me. See my works, even contact me via email.",
+    "btn_text": "Contact me"
+  },
+  "contacts": {
+    "h1": "Feel Free To Text Me",
+    "cv_before":  "Watch my",
+    "cv_name": "CV",
+    "email": "Email",
+    "email_place": "Write your email",
+    "subject": "Subject",
+    "message": "Message",
+    "message_place": "Write your message",
+    "words": "Words",
+    "btn_text": "Send message"
+  },
+  "form": {
+    "required": "Required field"
+  }
 }
