@@ -3,20 +3,30 @@
     <div class="works-title">
       <h1>Works</h1>
     </div>
-    <div class="works-container">
-      <WorkItem />
-      <WorkItem />
+    <h3 v-if="getAllWorks.length == 0" class="no-works">No Works</h3>
+    <div v-if="getAllWorks.length > 0" class="works-container">
+      <WorkItem v-for="work in getAllWorks" :key="work.id" :work="work" />
     </div>
   </div>
 </template>
 
 <script>
 import WorkItem from "@/components/WorkItem.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Works",
   components: {
     WorkItem,
+  },
+  computed: {
+    ...mapGetters(["getAllWorks"]),
+  },
+  methods: {
+    ...mapActions(["fetchAllWorksByLang"]),
+  },
+  mounted() {
+    this.fetchAllWorksByLang({ language_short: "EN" });
   },
 };
 </script>
@@ -24,6 +34,9 @@ export default {
 <style lang="scss">
 .works {
   padding: 20px 80px;
+  .no-works {
+    text-align: center;
+  }
   .works-title {
     text-align: center;
     margin-bottom: 30px;
@@ -31,6 +44,21 @@ export default {
   .works-container {
     display: grid;
     grid-row-gap: 20px;
+  }
+}
+@media (max-width: 700px) {
+  .works {
+    padding: 20px 80px;
+    .works-container {
+      display: grid;
+      grid-row-gap: 20px;
+      align-items: center;
+    }
+  }
+}
+@media (max-width: 520px) {
+  .works {
+    padding: 20px 20px;
   }
 }
 </style>
