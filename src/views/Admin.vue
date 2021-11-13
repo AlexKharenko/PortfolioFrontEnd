@@ -8,7 +8,7 @@
       />
       <ButtonFunction :btn_text="'Logout'" :function_do="logout" />
     </div>
-    <h3 v-if="getAllWorks.length == 0">Not Found</h3>
+    <h3 v-if="getAllWorks.length == 0" class="no-works">No Works</h3>
     <div v-if="getAllWorks.length > 0" class="admin-works">
       <WorkItemAdmin
         class="margin-top-10"
@@ -58,6 +58,9 @@ export default {
 
 <style lang="scss">
 .admin-page {
+  .no-works {
+    text-align: center;
+  }
   .redirect-btn-block {
     grid-gap: 20px;
     padding: 40px 0;
