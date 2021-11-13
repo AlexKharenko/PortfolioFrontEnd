@@ -5,7 +5,12 @@
         <div class="logo">AlexKharenko</div>
       </router-link>
     </div>
-    <div class="nav-right-part">
+    <div class="toggle-btn" @click="toggleMenu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <div class="nav-right-part" :class="active ? 'active' : ''">
       <router-link to="/about">
         <p class="nav-link-text">About me</p>
       </router-link>
@@ -29,12 +34,17 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "NavBar",
   data() {
-    return {};
+    return {
+      active: false,
+    };
   },
   methods: {
     ...mapActions(["changeDarkModeActivity"]),
     darkModeClick() {
       this.changeDarkModeActivity(!this.isDarkModeOn);
+    },
+    toggleMenu() {
+      this.active = !this.active;
     },
   },
   computed: {
@@ -76,6 +86,24 @@ export default {
       }
     }
   }
+
+  .toggle-btn {
+    position: absolute;
+    right: 20px;
+    top: 19px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    .bar {
+      height: 3px;
+      width: 100%;
+      background-color: black;
+      border-radius: 10px;
+    }
+  }
+
   .nav-right-part {
     display: flex;
     justify-content: right;
@@ -127,6 +155,13 @@ export default {
         color: grey;
       }
     }
+
+    .toggle-btn {
+      .bar {
+        background-color: white;
+      }
+    }
+
     .nav-right-part {
       a:hover {
         border-bottom: 2px solid transparent;
@@ -140,6 +175,35 @@ export default {
         left: 16px;
         background: white;
       }
+    }
+  }
+}
+@media (max-width: 520px) {
+  .nav-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .nav-right-part {
+      transition: max-height 0.4s ease-in-out;
+      overflow: hidden;
+      max-height: 0;
+      width: 100%;
+      flex-direction: column;
+      text-align: center;
+      a {
+        margin-top: 10px;
+      }
+      .btn-toggle-mode {
+        margin-top: 20px;
+        align-self: center;
+      }
+    }
+    .nav-right-part.active {
+      max-height: 200px;
+    }
+    .toggle-btn {
+      display: flex;
+      cursor: pointer;
     }
   }
 }
