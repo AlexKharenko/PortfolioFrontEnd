@@ -88,12 +88,12 @@ export default {
     if (!this.isLoggedIn) {
       this.$router.push("/");
     } else {
-      if (!this.$route.query.work_id || !this.$route.query.language_id) {
+      if (!this.$route.query.work_id || !this.$route.query.language_short) {
         this.$router.push("/admin");
         return;
       }
       this.fetchWork({
-        language_id: this.$route.query.language_id,
+        language_short: this.$route.query.language_short,
         work_id: this.work_id,
       });
     }

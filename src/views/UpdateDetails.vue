@@ -41,7 +41,7 @@ export default {
       work_name: "",
       work_details: "",
       work_id: this.$route.query.work_id,
-      language_id: this.$route.query.language_id,
+      language_short: this.$route.query.language_short,
       error: "",
     };
   },
@@ -53,8 +53,8 @@ export default {
   },
   methods: {
     ...mapActions(["LogIn", "fetchWork", "updateWorkDetails"]),
-    redirectToAdminIf(message) {
-      if (!this.error) {
+    redirectToAdminIf(success, message) {
+      if (success) {
         alert(message);
         this.$router.push("/admin");
       }
@@ -68,11 +68,11 @@ export default {
         work_name: this.work_name,
         work_details: this.work_details,
         work_id: this.work_id,
-        language_id: this.language_id,
+        language_id: this.getWork.language_id,
       };
-      const { err, message } = await this.updateWorkDetails(data);
+      const { err, message, success } = await this.updateWorkDetails(data);
       this.error = err;
-      this.redirectToAdminIf(message);
+      this.redirectToAdminIf(success, message);
     },
   },
   watch: {
@@ -90,12 +90,12 @@ export default {
     if (!this.isLoggedIn) {
       this.$router.push("/");
     } else {
-      if (!this.$route.query.work_id || !this.$route.query.language_id) {
+      if (!this.$route.query.work_id || !this.$route.query.language_short) {
         this.$router.push("/admin");
         return;
       }
       this.fetchWork({
-        language_id: this.language_id,
+        language_short: this.language_short,
         work_id: this.work_id,
       });
     }
