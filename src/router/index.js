@@ -5,139 +5,151 @@ const routes = [
   {
     path: "/",
     name: "Home",
+    meta: {
+      title: "AlexKharenko | Home",
+    },
     component: Home,
   },
   {
     path: "/about",
     name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "AlexKharenko | About Me",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/About.vue");
+      return import("../views/About.vue");
     },
   },
   {
     path: "/works",
     name: "Works",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "AlexKharenko | All Works",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/Works.vue");
+      return import("../views/Works.vue");
     },
   },
   {
     path: "/works/:id",
     name: "WorkDetails",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "AlexKharenko | Work",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/WorkDetails.vue");
+      return import("../views/WorkDetails.vue");
     },
   },
   {
     path: "/contacts",
     name: "Contacts",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "AlexKharenko | Contacts",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/Contacts.vue");
+      return import("../views/Contacts.vue");
     },
   },
   {
     path: "/login",
     name: "Login",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "Login",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/LogIn.vue");
+      return import("../views/LogIn.vue");
     },
   },
   {
     path: "/signup",
     name: "SignUp",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "SignUp",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/SignUp.vue");
+      return import("../views/SignUp.vue");
     },
   },
   {
     path: "/admin",
     name: "Admin",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "Admin Page",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/Admin.vue");
+      return import("../views/Admin.vue");
     },
   },
   {
     path: "/admin/add/work",
     name: "AddWork",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "Add Work",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/AddWork.vue");
+      return import("../views/AddWork.vue");
     },
   },
   {
     path: "/admin/add/lang",
     name: "AddLanguage",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "Add Language",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/AddLanguage.vue");
+      return import("../views/AddLanguage.vue");
     },
   },
   {
     path: "/admin/add/details",
     name: "AddDetails",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "Add Details",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/AddDetails.vue");
+      return import("../views/AddDetails.vue");
     },
   },
   {
     path: "/admin/edit/work",
     name: "Edit work",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "Edit Work",
+    },
     component: function () {
-      return import(/* webpackChunkName: "about" */ "../views/UpdateWork.vue");
+      return import("../views/UpdateWork.vue");
     },
   },
   {
     path: "/admin/edit/details",
     name: "Edit details",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    meta: {
+      title: "Edit Details",
+    },
     component: function () {
-      return import(
-        /* webpackChunkName: "about" */ "../views/UpdateDetails.vue"
-      );
+      return import("../views/UpdateDetails.vue");
     },
   },
   {
     path: "/:catchAll(.*)",
     redirect: "/",
+    meta: {
+      title: "AlexKharenko | 404",
+    },
   },
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+router.beforeEach((toRoute, fromRoute, next) => {
+  window.document.title =
+    toRoute.meta && toRoute.meta.title
+      ? toRoute.meta.title
+      : "AlexKharenko | Home";
+
+  next();
 });
 
 export default router;
