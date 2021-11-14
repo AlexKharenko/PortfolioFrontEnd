@@ -127,7 +127,6 @@ const actions = {
       if (response.status === 404) {
         response = await response.json();
         await commit("setWorks", []);
-        router.push("/404");
       }
       if (response.status >= 500) {
         router.push("/505");
@@ -152,7 +151,6 @@ const actions = {
       if (response.status === 404) {
         response = await response.json();
         await commit("setWorks", []);
-        router.push("/404");
       }
       if (response.status >= 500) {
         router.push("/505");
