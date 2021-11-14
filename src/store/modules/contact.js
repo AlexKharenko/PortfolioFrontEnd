@@ -1,4 +1,4 @@
-// import router from "@/router";
+import router from "@/router";
 
 const actions = {
   // eslint-disable-next-line no-unused-vars
@@ -17,9 +17,12 @@ const actions = {
       response = await response.json();
       return response;
     } else {
-      if (response.status == 429 || response.status == 505) {
+      if (response.status == 429) {
         response = await response.json();
         return response;
+      }
+      if (response.status >= 500) {
+        router.push("/505");
       }
     }
   },

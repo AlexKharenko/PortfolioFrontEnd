@@ -64,21 +64,22 @@ const actions = {
         if (response.ok) {
           return response.json();
         }
-        // if (response.status == 404) {
-        //   router.push("/404");
-        //   return 0;
-        // }
+        if (response.status == 404) {
+          router.push("/404");
+          return 0;
+        }
         if (response.status == 401 || response.status == 403) {
           return response.json();
         }
-        // if (response.status == 500) {
-        //   router.push("/error");
-        //   return 0;
-        // }
+
+        if (response.status >= 500) {
+          router.push("/505");
+          return;
+        }
       })
       .catch((error) => {
         console.error(error);
-        // router.push("/error");
+        router.push("/505");
       });
     await commit("setUser", res.user || "");
     dispatch("changeLogInStatus", res.success);
