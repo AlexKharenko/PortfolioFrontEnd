@@ -5,6 +5,39 @@
     "contacts": "Contacts",
     "admin": "Admin"
   },
+  "about": {
+    "main_message": "I am a junior front-end developer. I got acquainted with this technology at the university where I am studying now. I find this to be a very interesting way of programming. At the moment, I prefer to use Vue in my projects. I believe that I can work in a team because I play football in my free time and it helps me to improve my communication skills. I also worked in a team with my friends from the university. We have developed a site for listening to music and other interesting things. You can see this in the 'Works' tab. Also, I have experience in back-end and pygame development.",
+    "skills": "My skills",
+    "education": {
+      "title": "Education",
+      "education_array": [
+        {
+          "university": "National Technical University of Ukraine 'Igor Sikorsky Kyiv Polytechnic Institute'",
+          "city": "Kyiv",
+          "degree": "Bachelor of Software engineering",
+          "period": "September 2019 - June 2023"
+        }
+      ]
+    },
+    "work_expirience": {
+      "title": "Work experience",
+      "works": [{ "where": "", "period": "" }]
+    },
+    "languages": {
+      "title": "Languages",
+      "languages_array": [
+        {
+          "lang": "English",
+          "lang_level": "Intermediate"
+        },
+        {
+          "lang": "Russian",
+          "lang_level": "Fluent"
+        },
+        { "lang": "Ukrainian", "lang_level": "Fluent" }
+      ]
+    }
+  },
   "works": {
     "title": "Works",
     "no_works": "No works"
