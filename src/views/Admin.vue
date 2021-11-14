@@ -13,7 +13,7 @@
       <WorkItemAdmin
         class="margin-top-10"
         v-for="work in getAllWorks"
-        :key="work.id"
+        :key="uniqueKey(work)"
         :work="work"
       />
     </div>
@@ -38,6 +38,9 @@ export default {
   },
   methods: {
     ...mapActions(["LogIn", "fetchAllWorks", "changeLogInStatus", "logout"]),
+    uniqueKey(work) {
+      return `${work.id}${work.language_id}`;
+    },
   },
   watch: {
     isLoggedIn() {
