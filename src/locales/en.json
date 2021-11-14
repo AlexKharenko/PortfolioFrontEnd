@@ -1,6 +1,6 @@
 {
-  "nav_bar":{
-    "about":"About me",
+  "nav_bar": {
+    "about": "About me",
     "works": "Works",
     "contacts": "Contacts",
     "admin": "Admin"
@@ -16,7 +16,7 @@
   },
   "contacts": {
     "h1": "Feel Free To Text Me",
-    "cv_before":  "Watch my",
+    "cv_before": "Watch my",
     "cv_name": "CV",
     "email": "Email",
     "email_place": "Write your email",
@@ -28,5 +28,9 @@
   },
   "form": {
     "required": "Required field"
+  },
+  "error_page": {
+    "404": "Not Found",
+    "505": "Server Internal Error"
   }
 }

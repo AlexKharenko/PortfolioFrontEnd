@@ -131,8 +131,28 @@ const routes = [
     },
   },
   {
+    path: "/404",
+    name: "404",
+    meta: {
+      title: "Not Found",
+    },
+    component: function () {
+      return import("../views/404.vue");
+    },
+  },
+  {
+    path: "/505",
+    name: "505",
+    meta: {
+      title: "Server Internal Error",
+    },
+    component: function () {
+      return import("../views/505.vue");
+    },
+  },
+  {
     path: "/:catchAll(.*)",
-    redirect: "/",
+    redirect: "/404",
     meta: {
       title: "AlexKharenko | 404",
     },
