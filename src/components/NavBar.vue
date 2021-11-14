@@ -189,7 +189,7 @@ export default {
     }
   }
 }
-@media (max-width: 520px) {
+@media (max-width: 610px) {
   .nav-bar {
     display: flex;
     flex-direction: column;
