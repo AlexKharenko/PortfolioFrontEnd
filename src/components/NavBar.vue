@@ -14,7 +14,7 @@
       <router-link to="/about">
         <p class="nav-link-text">{{ $t("nav_bar.about") }}</p>
       </router-link>
-      <router-link to="/works">
+      <router-link to="/projects">
         <p class="nav-link-text">{{ $t("nav_bar.works") }}</p>
       </router-link>
       <router-link to="/contacts">

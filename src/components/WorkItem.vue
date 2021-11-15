@@ -18,7 +18,7 @@
         </div>
         <ButtonRedirect
           :btn_text="'About it'"
-          :target_page="`/works/${work.work_id}`"
+          :target_page="`/projects/${work.work_id}`"
         />
       </div>
     </div>
