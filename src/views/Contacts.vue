@@ -5,7 +5,7 @@
       <h3>
         {{ $t("contacts.cv_before") }}
         <a
-          href="https://drive.google.com/file/d/1LztOOw8Mv8v2bU1JVWLqzs1XpjkdOvjT/view?usp=sharing"
+          href="https://drive.google.com/file/d/1h3IER6MGKDiaYNUrDKvEaYepigN1Z6qi/view?usp=sharing"
           target="_blank"
           >{{ $t("contacts.cv_name") }}</a
         >
