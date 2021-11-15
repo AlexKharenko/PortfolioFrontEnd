@@ -1,7 +1,7 @@
 {
   "nav_bar": {
     "about": "About me",
-    "works": "Works",
+    "works": "Projects",
     "contacts": "Contacts",
     "admin": "Admin"
   },
@@ -34,13 +34,13 @@
           "lang": "Russian",
           "lang_level": "Fluent"
         },
-        { "lang": "Ukrainian", "lang_level": "Fluent" }
+        { "lang": "Ukrainian", "lang_level": "Native" }
       ]
     }
   },
   "works": {
-    "title": "Works",
-    "no_works": "No works"
+    "title": "Projects",
+    "no_works": "No projects"
   },
   "footer": "Made with Vue3",
   "home": {

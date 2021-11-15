@@ -21,20 +21,20 @@ const routes = [
     },
   },
   {
-    path: "/works",
+    path: "/projects",
     name: "Works",
     meta: {
-      title: "AlexKharenko | All Works",
+      title: "AlexKharenko | All Projects",
     },
     component: function () {
       return import("../views/Works.vue");
     },
   },
   {
-    path: "/works/:id",
+    path: "/projects/:id",
     name: "WorkDetails",
     meta: {
-      title: "AlexKharenko | Work",
+      title: "AlexKharenko | Project",
     },
     component: function () {
       return import("../views/WorkDetails.vue");
