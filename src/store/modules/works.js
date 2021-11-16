@@ -45,7 +45,6 @@ const actions = {
       if (response.status === 404) {
         response = await response.json();
         await commit("setLanguages", []);
-        router.push("/404");
       }
       if (response.status >= 500) {
         router.push("/505");
