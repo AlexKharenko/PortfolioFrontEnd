@@ -62,7 +62,7 @@ export default {
   },
   mounted() {
     this.fetchWork({
-      language_short: "EN",
+      language_short: this.$i18n.locale.toUpperCase(),
       work_id: this.$route.params.id,
     });
   },
