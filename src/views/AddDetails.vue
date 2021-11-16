@@ -43,6 +43,7 @@
       <div class="input-block">
         <p class="form-field-title">Work details</p>
         <textarea
+          v-model="work_details"
           class="form-field"
           type="text"
           name="work_details"
