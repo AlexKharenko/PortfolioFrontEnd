@@ -116,7 +116,7 @@ export default {
 
   .nav-right-part {
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
     a {
       margin-left: 20px;
       border-bottom: 2px solid transparent;
