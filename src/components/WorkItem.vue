@@ -56,10 +56,9 @@ export default {
   padding-bottom: 20px;
   .work-block {
     display: flex;
-    width: 480px;
     .work-img {
       margin-right: 40px;
-      width: inherit;
+      width: 460px;
       height: 240px;
       img {
         width: inherit;
@@ -96,7 +95,9 @@ export default {
     .work-block {
       display: block;
       max-height: none;
+      width: 480px;
       .work-img {
+        width: inherit;
         margin-right: 0;
       }
       .work-data-block {
