@@ -1,6 +1,12 @@
 <template>
   <div class="wrapper" :class="[isDarkModeOn ? 'dark' : '']">
     <NavBar />
+
+    <div v-if="!isDataUploaded" class="loading">
+      <div class="spinner">
+        <img src="./assets/main_screen/refresh.png" />
+      </div>
+    </div>
     <router-view class="main" />
     <Socials />
     <Footer />
@@ -20,6 +26,7 @@ export default {
     Footer,
   },
   computed: {
+    ...mapGetters("uploading", ["isDataUploaded"]),
     ...mapGetters(["isDarkModeOn"]),
   },
   methods: {
@@ -71,10 +78,49 @@ export default {
     left: 50%;
     transform: translateX(-50%);
   }
+  .loading {
+    height: calc(100vh - 60px);
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    z-index: 1;
+    .spinner {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      justify-content: center;
+      img {
+        height: 150px;
+        width: 150px;
+        filter: invert(1);
+        animation: fullRotate 1s ease-in-out infinite;
+      }
+    }
+  }
 }
 .wrapper.dark {
   background: var(--dark-mode-background);
   color: var(--default-dark-mode-color);
+  .loading {
+    background-color: var(--dark-mode-background);
+    .spinner {
+      img {
+        filter: invert(0);
+      }
+    }
+  }
+}
+
+@keyframes fullRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 ::-webkit-scrollbar {
