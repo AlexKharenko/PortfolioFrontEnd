@@ -119,8 +119,9 @@ const actions = {
       }
     }
   },
-  async fetchAllWorksByLang({ commit }, data) {
+  async fetchAllWorksByLang({ commit, dispatch }, data) {
     await commit("setWorks", []);
+    dispatch("uploading/changeDataUploadStatus", false, { root: true });
     let response = await fetch(
       `${process.env.VUE_APP_SERVER}/works/get/works?language_short=${data.language_short}`,
       {
@@ -130,6 +131,7 @@ const actions = {
         },
       }
     );
+    dispatch("uploading/changeDataUploadStatus", true, { root: true });
     if (response.status == 200) {
       response = await response.json();
       await commit("setWorks", response.data);
@@ -143,8 +145,9 @@ const actions = {
       }
     }
   },
-  async fetchWork({ commit }, data) {
+  async fetchWork({ commit, dispatch }, data) {
     await commit("setWork", "");
+    dispatch("uploading/changeDataUploadStatus", false, { root: true });
     let response = await fetch(
       `${process.env.VUE_APP_SERVER}/works/get/work?work_id=${data.work_id}&language_short=${data.language_short}`,
       {
@@ -154,6 +157,7 @@ const actions = {
         },
       }
     );
+    dispatch("uploading/changeDataUploadStatus", true, { root: true });
     if (response.status == 200) {
       response = await response.json();
       await commit("setWork", response.data);
