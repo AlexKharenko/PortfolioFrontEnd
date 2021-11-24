@@ -11,6 +11,18 @@ const getters = {
 };
 
 const actions = {
+  async logout({ dispatch }) {
+    try {
+      await fetch(`${process.env.VUE_APP_SERVER}/logout`, {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (e) {
+      router.push("/");
+    }
+    dispatch("changeLogInStatus", false);
+    router.push("/");
+  },
   // eslint-disable-next-line no-unused-vars
   async SignUp({ commit }, data) {
     let response = await fetch(`${process.env.VUE_APP_SERVER}/signup`, {

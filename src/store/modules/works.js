@@ -14,19 +14,6 @@ const getters = {
 };
 
 const actions = {
-  async logout({ dispatch }) {
-    try {
-      await fetch(`${process.env.VUE_APP_SERVER}/logout`, {
-        method: "POST",
-        credentials: "include",
-      });
-    } catch (e) {
-      router.push("/");
-    }
-    dispatch("changeLogInStatus", false);
-    router.push("/");
-  },
-
   async fetchAllLanguages({ commit }) {
     let response = await fetch(
       `${process.env.VUE_APP_SERVER}/works/get/alllang`,
