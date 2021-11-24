@@ -205,11 +205,11 @@ export default {
         margin-top: 10px;
       }
       .btn-toggle-mode {
-        margin-top: 20px;
+        margin-top: 10px;
         align-self: center;
       }
       .locale-changer {
-        margin-top: 20px;
+        padding-top: 10px;
       }
     }
     .nav-right-part.active {
